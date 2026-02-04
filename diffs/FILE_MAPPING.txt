@@ -1,0 +1,12 @@
+Source: xgb_recv (CASPER SVN r2051, 2009-06-29)
+        http://casper.berkeley.edu/svn/trunk/projects/xgb_recv
+
+Target: PySPEAD (commit b20360a, 2010-01-17)
+        https://github.com/AaronParsons/PySPEAD/commit/b20360a4928485773a4e8d7bb27d0733e9e5c6e5
+
+Diffs generated with: diff -u -w
+
+ring_buffer.h --> PySPEAD/src/_spead/include/ring_buffer.h
+ring_buffer.c --> PySPEAD/src/_spead/ring_buffer.cpp
+xgb_recv.h    --> PySPEAD/src/_spead/include/buffer_socket.h
+xgb_recv.c    --> PySPEAD/src/_spead/buffer_socket.cpp

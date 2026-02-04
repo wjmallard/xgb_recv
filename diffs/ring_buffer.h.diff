@@ -1,0 +1,53 @@
+--- xgb_recv/ring_buffer.h	2010-04-16 13:44:32
++++ PySPEAD/src/_spead/include/ring_buffer.h	2026-02-03 20:34:20
+@@ -1,9 +1,3 @@
+-/* file: ring_buffer.h
+- * auth: William Mallard
+- * mail: wjm@berkeley.edu
+- * date: 2008-04-02
+- */
+-
+ #ifndef _RING_BUFFER_H_
+ #define _RING_BUFFER_H_
+ 
+@@ -11,22 +5,20 @@
+ #include <semaphore.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include "spead_packet.h"
+ 
+-/*
+- * Structure Definitions
+- */
++//Objects
+ 
+ typedef struct ring_item {
+ 	struct ring_item *next;
+ 	sem_t write_mutex;
+ 	sem_t read_mutex;
+-	uint8_t *data;
+-	size_t size;
++	SpeadPacket pkt;
+ } RING_ITEM;
+ 
+ typedef struct ring_buffer {
+-	void *buffer_ptr;
+-	size_t buffer_size;
++	//SpeadPacket *pktbuf_ptr;
++	//size_t pktbuf_size;
+ 
+ 	struct ring_item *list_ptr;
+ 	size_t list_length;
+@@ -35,11 +27,7 @@
+ 	struct ring_item *read_ptr;
+ } RING_BUFFER;
+ 
+-/*
+- * Function Declarations
+- */
+-
+-RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size);
++RING_BUFFER *ring_buffer_create(size_t item_count);
+ void ring_buffer_delete(RING_BUFFER *rb);
+ 
+ #endif // _RING_BUFFER_H_

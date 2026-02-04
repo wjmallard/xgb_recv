@@ -1,0 +1,818 @@
+CASPER SVN Commit Log (filtered: author=wjm)
+=============================================
+
+These commits span all projects in the CASPER SVN repository, formerly
+located at casper.berkeley.edu. Related projects sharing this history
+include corr_rx and tenge_corr_rx.
+
+------------------------------------------------------------------------
+r2051 | wjm | 2009-06-29 15:58:08 -0700 (Mon, 29 Jun 2009) | 1 line
+
+Addded comments.
+------------------------------------------------------------------------
+r2050 | wjm | 2009-06-29 15:56:49 -0700 (Mon, 29 Jun 2009) | 1 line
+
+Minor comment and debug tweaks.
+------------------------------------------------------------------------
+r2049 | wjm | 2009-06-29 15:40:34 -0700 (Mon, 29 Jun 2009) | 4 lines
+
+Merge failed.
+Manually moving from branches to trunk.
+Removing old tenge_raw_rx.
+
+------------------------------------------------------------------------
+r2048 | wjm | 2009-06-29 15:34:04 -0700 (Mon, 29 Jun 2009) | 2 lines
+
+Merging xgb_recv back into the trunk.
+
+------------------------------------------------------------------------
+r2047 | wjm | 2009-06-29 15:28:48 -0700 (Mon, 29 Jun 2009) | 1 line
+
+Added some comments.
+------------------------------------------------------------------------
+r2046 | wjm | 2009-06-29 15:18:10 -0700 (Mon, 29 Jun 2009) | 1 line
+
+Removed corr-0.0.0 Python/C code.
+------------------------------------------------------------------------
+r2045 | wjm | 2009-06-29 15:17:40 -0700 (Mon, 29 Jun 2009) | 1 line
+
+Replaced crufty mmap() code with malloc() calls.
+------------------------------------------------------------------------
+r2044 | wjm | 2009-06-29 15:06:11 -0700 (Mon, 29 Jun 2009) | 1 line
+
+Updated Makefile to work after filename change in last commit.
+------------------------------------------------------------------------
+r2041 | wjm | 2009-06-29 10:32:32 -0700 (Mon, 29 Jun 2009) | 1 line
+
+renamed tenge_rx to xgb_recv.
+------------------------------------------------------------------------
+r2040 | wjm | 2009-06-29 10:31:12 -0700 (Mon, 29 Jun 2009) | 1 line
+
+renamed tenge_rx to xgb_recv.
+------------------------------------------------------------------------
+r2021 | wjm | 2009-06-24 16:23:35 -0700 (Wed, 24 Jun 2009) | 4 lines
+
+Forked tenge_raw_rx to tenge_rx.
+Added Aaron's corr-0.0.0 code.
+Have not yet integrated them.
+
+------------------------------------------------------------------------
+r1938 | wjm | 2009-05-26 22:55:52 -0700 (Tue, 26 May 2009) | 1 line
+
+Added all things related to hardware and electronics.
+------------------------------------------------------------------------
+r1812 | wjm | 2009-04-07 23:33:02 -0700 (Tue, 07 Apr 2009) | 1 line
+
+Added some code from Hayden.
+------------------------------------------------------------------------
+r1691 | wjm | 2009-02-18 18:43:27 -0800 (Wed, 18 Feb 2009) | 2 lines
+
+Apparently read() does not block for new data on a FIFO.
+Fixed FIFO read() logic accordingly (with some usleeps).
+------------------------------------------------------------------------
+r1690 | wjm | 2009-02-18 16:57:24 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Added net_fifo for dumping network data to a unix fifo.
+------------------------------------------------------------------------
+r1689 | wjm | 2009-02-18 15:12:35 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Minor tweak.
+------------------------------------------------------------------------
+r1688 | wjm | 2009-02-18 15:00:19 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Bugfixes.
+------------------------------------------------------------------------
+r1687 | wjm | 2009-02-18 11:43:55 -0800 (Wed, 18 Feb 2009) | 2 lines
+
+Moved projects/isi_correlator/src to projects/fifo_tools.
+
+------------------------------------------------------------------------
+r1686 | wjm | 2009-02-18 11:37:19 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Bugfixes.
+------------------------------------------------------------------------
+r1685 | wjm | 2009-02-18 11:33:41 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Bugfixes.
+------------------------------------------------------------------------
+r1684 | wjm | 2009-02-18 11:31:10 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Removed unnecessary calls to hexdump().
+------------------------------------------------------------------------
+r1682 | wjm | 2009-02-18 11:27:08 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Improved Makefile.
+------------------------------------------------------------------------
+r1681 | wjm | 2009-02-18 11:16:20 -0800 (Wed, 18 Feb 2009) | 1 line
+
+Added wrapper functions for common network calls.
+------------------------------------------------------------------------
+r1680 | wjm | 2009-02-18 10:38:06 -0800 (Wed, 18 Feb 2009) | 2 lines
+
+Implemented smarter Ctrl-C catching.
+Major code cleanup.  Minor bugfixes.
+------------------------------------------------------------------------
+r1671 | wjm | 2009-02-17 18:29:11 -0800 (Tue, 17 Feb 2009) | 3 lines
+
+Distilled common features into a central library (libfifo).
+Added fifo_cat for cating a raw fifo to the terminal.
+Added fifo_dump for dumping a raw fifo to a file.
+------------------------------------------------------------------------
+r1670 | wjm | 2009-02-17 16:37:01 -0800 (Tue, 17 Feb 2009) | 2 lines
+
+Relocated my raw 10GbE recv code to a more sensible location.
+
+------------------------------------------------------------------------
+r1664 | wjm | 2009-02-17 03:20:38 -0800 (Tue, 17 Feb 2009) | 2 lines
+
+Switched from calloc to mmap.
+Added basic signal handling.
+------------------------------------------------------------------------
+r1661 | wjm | 2009-02-16 21:14:14 -0800 (Mon, 16 Feb 2009) | 2 lines
+
+Removed debug statements.  Minor bugfixes.
+
+------------------------------------------------------------------------
+r1653 | wjm | 2009-02-13 21:23:20 -0800 (Fri, 13 Feb 2009) | 4 lines
+
+Added fifo_tx.c to dump fifos to the network.
+Added fifo_rx.c to write fifo packets to disk.
+Restructured directory to fit mdls and C code.
+
+------------------------------------------------------------------------
+r1635 | wjm | 2009-02-10 15:23:08 -0800 (Tue, 10 Feb 2009) | 1 line
+
+Moved packetized_correlator/corr_recv into its own project called tenge_corr_rx.
+------------------------------------------------------------------------
+r1566 | wjm | 2009-01-14 20:59:19 -0800 (Wed, 14 Jan 2009) | 2 lines
+
+Split vector accumulation into three separate paths.
+Got isi_correlator.mdl generating code successfully.
+------------------------------------------------------------------------
+r1517 | wjm | 2009-01-02 17:39:53 -0800 (Fri, 02 Jan 2009) | 1 line
+
+Implemented vector accumulation in the ISI correlator.
+------------------------------------------------------------------------
+r1516 | wjm | 2009-01-02 17:36:33 -0800 (Fri, 02 Jan 2009) | 1 line
+
+Renaming isi_corr to isi_correlator.
+------------------------------------------------------------------------
+r1515 | wjm | 2009-01-02 17:08:34 -0800 (Fri, 02 Jan 2009) | 1 line
+
+Bugfix: Made the constant zero block in vacc_core into a Sampled Constant with Sample Period of 1.
+------------------------------------------------------------------------
+r1511 | wjm | 2008-12-30 16:05:55 -0800 (Tue, 30 Dec 2008) | 1 line
+
+Implemented equalization in the ISI correlator.
+------------------------------------------------------------------------
+r1510 | wjm | 2008-12-30 16:00:52 -0800 (Tue, 30 Dec 2008) | 1 line
+
+Renamed corr_3ghz to isi_corr.
+------------------------------------------------------------------------
+r1501 | wjm | 2008-12-24 12:19:15 -0800 (Wed, 24 Dec 2008) | 1 line
+
+3GHz correlator F-engine now works.
+------------------------------------------------------------------------
+r1493 | wjm | 2008-12-22 20:42:38 -0800 (Mon, 22 Dec 2008) | 2 lines
+
+Fixed pointer problems with pthread_create arguments.
+Added skeleton of a Ctrl-C handler.  Not quite ready.
+------------------------------------------------------------------------
+r1490 | wjm | 2008-12-22 18:08:42 -0800 (Mon, 22 Dec 2008) | 3 lines
+
+Created a C program for high speed raw packet capture at 10Gbps.
+This is a stripped-down version of the 10GbE correlator rx code.
+
+------------------------------------------------------------------------
+r1376 | wjm | 2008-12-03 18:16:37 -0800 (Wed, 03 Dec 2008) | 2 lines
+
+Removed cruft left over from the CVS-to-SVN migration.
+
+------------------------------------------------------------------------
+r1375 | wjm | 2008-12-03 15:04:33 -0800 (Wed, 03 Dec 2008) | 1 line
+
+Added basic Ctrl-C signal handling.
+------------------------------------------------------------------------
+r1374 | wjm | 2008-12-03 14:21:51 -0800 (Wed, 03 Dec 2008) | 4 lines
+
+Cleaned DEBUG messages.
+Removed crufty files.
+Added a basic README file.
+Added a sample config file.
+------------------------------------------------------------------------
+r1339 | wjm | 2008-11-26 18:07:19 -0800 (Wed, 26 Nov 2008) | 1 line
+
+Added calls to c2m API to open, write, and close Miriad files.
+------------------------------------------------------------------------
+r1333 | wjm | 2008-11-25 19:54:19 -0800 (Tue, 25 Nov 2008) | 5 lines
+
+Implemented mem2mir, the first demo program utilizing the simplified
+interface to mmap'd INTEGRATION_BUFFER data structures on a ramdisk.
+This code transposes integration data, casts these values to doubles,
+and then writes them out to disk in Miriad format (though the Miriad
+part is untested).
+------------------------------------------------------------------------
+r1326 | wjm | 2008-11-24 16:20:32 -0800 (Mon, 24 Nov 2008) | 3 lines
+
+Updated MySQL schema to support parallelized python code.
+Forgot to commit this months ago. Better late than never.
+
+------------------------------------------------------------------------
+r1317 | wjm | 2008-11-20 17:32:06 -0800 (Thu, 20 Nov 2008) | 1 line
+
+Minor aesthetic fixes in INTEGRATION_BUFFER header.
+------------------------------------------------------------------------
+r1316 | wjm | 2008-11-20 15:52:29 -0800 (Thu, 20 Nov 2008) | 4 lines
+
+Fixed concurrency issues in INTEGRATION_BUFFER data structure.
+mem2mir should now have thread-safe access to the integration
+it retrieves from the INTEGRATION_BUFFER list.
+net2mem should still work.
+------------------------------------------------------------------------
+r1315 | wjm | 2008-11-20 11:42:49 -0800 (Thu, 20 Nov 2008) | 2 lines
+
+Cleaning up after successful SVN permissions test.
+
+------------------------------------------------------------------------
+r1314 | wjm | 2008-11-20 11:42:10 -0800 (Thu, 20 Nov 2008) | 2 lines
+
+Testing SVN permissions after server reinstallation.
+
+------------------------------------------------------------------------
+r1311 | wjm | 2008-11-15 19:25:38 -0800 (Sat, 15 Nov 2008) | 1 line
+
+Massive code overhaul.  Refactored.  Bugfixed.  Clearer logic.
+------------------------------------------------------------------------
+r1288 | wjm | 2008-11-06 15:48:37 -0800 (Thu, 06 Nov 2008) | 2 lines
+
+First attempt at fixing race conditions between net thread and hdd thread.
+Imperfect, but compiles.  This should be actually fixed in my next commit.
+------------------------------------------------------------------------
+r1270 | wjm | 2008-11-01 20:52:39 -0700 (Sat, 01 Nov 2008) | 4 lines
+
+Added INT_BUF_METADATA struct for INTEGRATION_BUFFER metadata.
+Implemented parsing of an INTEGRATION_BUFFER stored in a file.
+Consolidated three mmap wrapper functions into one.
+MEM2MIR now has a R/W copy of NET2MEM's INTEGRATION_BUFFER.
+------------------------------------------------------------------------
+r1266 | wjm | 2008-10-30 19:06:25 -0700 (Thu, 30 Oct 2008) | 1 line
+
+Bugfixes in INTEGRATION_BUFFER.  It now works as before my last commit.
+------------------------------------------------------------------------
+r1265 | wjm | 2008-10-30 16:48:57 -0700 (Thu, 30 Oct 2008) | 2 lines
+
+Started ripping apart INTEGRATION_BUFFER to accommodate MEM2MIR.
+Builds, but might not necessarily work.
+------------------------------------------------------------------------
+r1258 | wjm | 2008-10-29 17:38:45 -0700 (Wed, 29 Oct 2008) | 1 line
+
+Moved integration buffer to a public mmap'd ramdisk file.
+------------------------------------------------------------------------
+r1256 | wjm | 2008-10-29 17:00:15 -0700 (Wed, 29 Oct 2008) | 1 line
+
+Added read_mutex handling to INTEGRATION_BUFFER methods.
+------------------------------------------------------------------------
+r1255 | wjm | 2008-10-29 16:38:33 -0700 (Wed, 29 Oct 2008) | 3 lines
+
+Moved all integration-related methods into INTEGRATION_BUFFER.
+Fixed off-by-one error in the INTEGRATION_BUFFER constructor.
+Bugfix in Makefile. Miscellaneous reformatting.
+------------------------------------------------------------------------
+r1253 | wjm | 2008-10-29 12:50:19 -0700 (Wed, 29 Oct 2008) | 3 lines
+
+Re-implemented INTEGRATION_BUFFER based on ORDERED_LIST.
+Integrated byte order checking in CASPERN_PACKET.
+Moved around timestamp rounding within NET2MEM.
+------------------------------------------------------------------------
+r1249 | wjm | 2008-10-28 19:17:06 -0700 (Tue, 28 Oct 2008) | 2 lines
+
+Wrote a prototype ORDERED_LIST data structure.
+Need to re-write INTEGRATION_BUFFER similarly.
+------------------------------------------------------------------------
+r1248 | wjm | 2008-10-28 14:08:57 -0700 (Tue, 28 Oct 2008) | 1 line
+
+Updated Makefile.  Superficial bugfixes.
+------------------------------------------------------------------------
+r1240 | wjm | 2008-10-28 01:07:48 -0700 (Tue, 28 Oct 2008) | 1 line
+
+Preliminary cruft cleaning of mem2mir source.
+------------------------------------------------------------------------
+r1239 | wjm | 2008-10-28 00:03:44 -0700 (Tue, 28 Oct 2008) | 5 lines
+
+Split corr_rx into two logically separate programs.
+net2mem will handle rapid buffering of data from a
+NIC into memory (a shared mmap'd ramdisk probably).
+mem2mir will handle transforming this shared buffer
+into a miriad file.
+------------------------------------------------------------------------
+r1238 | wjm | 2008-10-27 23:40:16 -0700 (Mon, 27 Oct 2008) | 1 line
+
+Removed cruft.
+------------------------------------------------------------------------
+r1237 | wjm | 2008-10-27 23:20:21 -0700 (Mon, 27 Oct 2008) | 3 lines
+
+Implemented time-horizon checking for outdated packets.
+Added a bunch of sanity checks to integration reassembly.
+Renamed mappingThread and friends to assembleThread.
+------------------------------------------------------------------------
+r1233 | wjm | 2008-10-25 19:03:12 -0700 (Sat, 25 Oct 2008) | 1 line
+
+Cleaned-up find_destination_integration() logic.
+------------------------------------------------------------------------
+r1231 | wjm | 2008-10-24 18:27:24 -0700 (Fri, 24 Oct 2008) | 4 lines
+
+Improved and cleaned INTEGRATION_BUFFER data structure.
+Improved and cleaned CASPERN_PACKET header and methods.
+Re-implemented the mappingThreadFunction() from scratch.
+It now fully re-assembles integrations from the network.
+------------------------------------------------------------------------
+r1228 | wjm | 2008-10-23 21:02:27 -0700 (Thu, 23 Oct 2008) | 1 line
+
+Cleaned up memory handling in INTEGRATION_BUFFER class.
+------------------------------------------------------------------------
+r1227 | wjm | 2008-10-23 21:01:39 -0700 (Thu, 23 Oct 2008) | 1 line
+
+Further (minor) CASPERN_PACKET cleanup.
+------------------------------------------------------------------------
+r1226 | wjm | 2008-10-23 13:56:29 -0700 (Thu, 23 Oct 2008) | 1 line
+
+Added extra error check for BYTE_ORDER.
+------------------------------------------------------------------------
+r1225 | wjm | 2008-10-23 13:53:05 -0700 (Thu, 23 Oct 2008) | 3 lines
+
+Re-implemented ntohl and friends as ftohl equivalents.
+The 'f' is for FPGA, since they put out network data
+in anti-network-byte-order for some reason or another.
+------------------------------------------------------------------------
+r1222 | wjm | 2008-10-22 16:26:45 -0700 (Wed, 22 Oct 2008) | 8 lines
+
+Stripped out unnecessarily complex CASPERN_PACKET methods.
+The 10GBE block appears to spit out data in little-endian.
+I'm told this is a fundamental restriction of the FPGAs.
+Since little-endian is the opposite of network byte order,
+and our x86 testbench machine is little-endian, i decided
+to strip out caspern_packet.c for now.  Punt!  Eventually,
+we need to wrap ntohl() and friends with something to deal
+with anti-network-byte-order data coming from the network.
+------------------------------------------------------------------------
+r1218 | wjm | 2008-10-22 01:00:13 -0700 (Wed, 22 Oct 2008) | 2 lines
+
+Re-wrote CASPERN_PACKET class. Received bytesex is wrong?!
+Fixed some bugs in corr_rx, and just commented out others.
+------------------------------------------------------------------------
+r1217 | wjm | 2008-10-21 23:12:42 -0700 (Tue, 21 Oct 2008) | 1 line
+
+Bugfixes.
+------------------------------------------------------------------------
+r1216 | wjm | 2008-10-21 22:59:34 -0700 (Tue, 21 Oct 2008) | 1 line
+
+Logic fixes in corr_rx.  Miscellaneous cleanup.
+------------------------------------------------------------------------
+r1215 | wjm | 2008-10-21 22:52:50 -0700 (Tue, 21 Oct 2008) | 1 line
+
+Tweaked BIT_MAP and INTEGRATION_BUFFER destructors.
+------------------------------------------------------------------------
+r1214 | wjm | 2008-10-21 22:45:04 -0700 (Tue, 21 Oct 2008) | 1 line
+
+Cleaned up BIT_MAP data structure.  Added test code.
+------------------------------------------------------------------------
+r1213 | wjm | 2008-10-21 22:19:42 -0700 (Tue, 21 Oct 2008) | 1 line
+
+Renamed TABLE_BUFFER to INTEGRATION_BUFFER.
+------------------------------------------------------------------------
+r1212 | wjm | 2008-10-21 22:08:57 -0700 (Tue, 21 Oct 2008) | 3 lines
+
+Re-wrote TABLE_BUFFER data structure.
+Wrote some test code for it.
+Need to rename and integrate it.
+------------------------------------------------------------------------
+r1209 | wjm | 2008-10-21 02:20:50 -0700 (Tue, 21 Oct 2008) | 2 lines
+
+Updated networkThreadFunction to use new RING_BUFFER.
+Semi-updated mapThreadFunction similarly. Needs work.
+------------------------------------------------------------------------
+r1207 | wjm | 2008-10-21 00:27:08 -0700 (Tue, 21 Oct 2008) | 2 lines
+
+Re-wrote RING_BUFFER data structure.
+Not yet integrated with rest of code.
+------------------------------------------------------------------------
+r1133 | wjm | 2008-09-22 19:55:39 -0700 (Mon, 22 Sep 2008) | 1 line
+
+Parallelized and optimized my pls_parse.py script.
+------------------------------------------------------------------------
+r1031 | wjm | 2008-09-02 21:05:39 -0700 (Tue, 02 Sep 2008) | 1 line
+
+Removed another debug statement.
+------------------------------------------------------------------------
+r1030 | wjm | 2008-09-02 21:04:39 -0700 (Tue, 02 Sep 2008) | 1 line
+
+Removed a debug statement.
+------------------------------------------------------------------------
+r1029 | wjm | 2008-09-02 21:03:30 -0700 (Tue, 02 Sep 2008) | 4 lines
+
+Adding a MySQL schema and some commands to populate them.
+Adding a Python script to populate one of these new schema
+using raw pls files stored in the images_redux_deux table.
+
+------------------------------------------------------------------------
+r1011 | wjm | 2008-08-27 20:43:05 -0700 (Wed, 27 Aug 2008) | 1 line
+
+Implemented calls to Miriad wrapper code.  Untested.
+------------------------------------------------------------------------
+r1010 | wjm | 2008-08-27 20:05:19 -0700 (Wed, 27 Aug 2008) | 1 line
+
+Renamed packetcorrrelator [sic] to packetized_correlator.
+------------------------------------------------------------------------
+r987 | wjm | 2008-08-20 17:41:17 -0700 (Wed, 20 Aug 2008) | 1 line
+
+Added start of 3GHz correlator.
+------------------------------------------------------------------------
+r973 | wjm | 2008-08-19 10:55:29 -0700 (Tue, 19 Aug 2008) | 2 lines
+
+Subversion works again.
+
+------------------------------------------------------------------------
+r972 | wjm | 2008-08-19 10:55:06 -0700 (Tue, 19 Aug 2008) | 2 lines
+
+Testing subversion functionality.
+
+------------------------------------------------------------------------
+r881 | wjm | 2008-07-14 17:25:58 -0700 (Mon, 14 Jul 2008) | 1 line
+
+Improved command line argument parsing in cn_tx.py.
+------------------------------------------------------------------------
+r851 | wjm | 2008-07-08 18:22:51 -0700 (Tue, 08 Jul 2008) | 1 line
+
+Minor tweaks.
+------------------------------------------------------------------------
+r850 | wjm | 2008-07-08 18:15:31 -0700 (Tue, 08 Jul 2008) | 1 line
+
+Updated Makefile.
+------------------------------------------------------------------------
+r849 | wjm | 2008-07-08 18:14:56 -0700 (Tue, 08 Jul 2008) | 2 lines
+
+Added comments.
+Code cleanup.
+------------------------------------------------------------------------
+r848 | wjm | 2008-07-08 16:42:05 -0700 (Tue, 08 Jul 2008) | 3 lines
+
+Fixed segfault.
+Cleaned up code.
+It works.
+------------------------------------------------------------------------
+r847 | wjm | 2008-07-08 16:21:02 -0700 (Tue, 08 Jul 2008) | 3 lines
+
+Added first attempt at pcap_split.c,
+which splits pcap files into smaller
+time chunks.  Segfaults on fwrite().
+------------------------------------------------------------------------
+r792 | wjm | 2008-06-26 02:20:59 -0700 (Thu, 26 Jun 2008) | 1 line
+
+cleaning up after test
+------------------------------------------------------------------------
+r791 | wjm | 2008-06-26 02:17:44 -0700 (Thu, 26 Jun 2008) | 1 line
+
+testing new repository
+------------------------------------------------------------------------
+r788 | wjm | 2008-06-23 23:52:21 -0700 (Mon, 23 Jun 2008) | 1 line
+
+Added support for the RFI indicator field.
+------------------------------------------------------------------------
+r782 | wjm | 2008-06-19 17:11:30 -0700 (Thu, 19 Jun 2008) | 1 line
+
+Added a simple RFI excision criterion to pls_skim.
+------------------------------------------------------------------------
+r781 | wjm | 2008-06-19 17:02:33 -0700 (Thu, 19 Jun 2008) | 2 lines
+
+Versioning my Fly's Eye project data-processing C code.
+
+------------------------------------------------------------------------
+r768 | wjm | 2008-06-12 15:31:50 -0700 (Thu, 12 Jun 2008) | 1 line
+
+Fixed scope bug.
+------------------------------------------------------------------------
+r750 | wjm | 2008-06-04 17:49:08 -0700 (Wed, 04 Jun 2008) | 1 line
+
+Fixed typo.
+------------------------------------------------------------------------
+r735 | wjm | 2008-05-28 19:34:31 -0700 (Wed, 28 May 2008) | 5 lines
+
+Added a new mappingThread into corr_rx.c to
+map raw correlator packets from a ring buffer
+into complete integrations in a table buffer.
+It's functionality has not yet been tested,
+but it does compile without error.
+------------------------------------------------------------------------
+r734 | wjm | 2008-05-28 19:27:49 -0700 (Wed, 28 May 2008) | 3 lines
+
+Wrote table_buffer data structure class.
+Removed bit_map member from ring_buffer class.
+Rewrote CasperN packet class from scratch.
+------------------------------------------------------------------------
+r733 | wjm | 2008-05-28 15:24:40 -0700 (Wed, 28 May 2008) | 1 line
+
+Added isFullBitMap method to BIT_MAP class.
+------------------------------------------------------------------------
+r732 | wjm | 2008-05-28 14:10:20 -0700 (Wed, 28 May 2008) | 2 lines
+
+Added clearBitMap() method to bit_map class.
+Gave ring_buffer class a bit_map member.
+------------------------------------------------------------------------
+r730 | wjm | 2008-05-27 22:56:17 -0700 (Tue, 27 May 2008) | 1 line
+
+Removed semaphores from bit_map data structure.
+------------------------------------------------------------------------
+r729 | wjm | 2008-05-27 22:52:51 -0700 (Tue, 27 May 2008) | 3 lines
+
+Tweaked my ring_buffer data structure.
+Created a bit_map data structure.
+Updated the Makefile accordingly.
+------------------------------------------------------------------------
+r726 | wjm | 2008-05-26 21:33:00 -0700 (Mon, 26 May 2008) | 1 line
+
+Bugfixes.
+------------------------------------------------------------------------
+r725 | wjm | 2008-05-26 21:30:15 -0700 (Mon, 26 May 2008) | 1 line
+
+Added function prototypes to caspern_packet header.
+------------------------------------------------------------------------
+r724 | wjm | 2008-05-26 21:24:56 -0700 (Mon, 26 May 2008) | 1 line
+
+Split caspern_packet.h into a header and source file.
+------------------------------------------------------------------------
+r723 | wjm | 2008-05-26 21:01:49 -0700 (Mon, 26 May 2008) | 1 line
+
+Improved Makefile even more.
+------------------------------------------------------------------------
+r722 | wjm | 2008-05-26 20:53:06 -0700 (Mon, 26 May 2008) | 1 line
+
+Fixed some Makefile bugs.
+------------------------------------------------------------------------
+r721 | wjm | 2008-05-26 20:07:55 -0700 (Mon, 26 May 2008) | 1 line
+
+Reformatted Griffin's code. (Don't kill me!)
+------------------------------------------------------------------------
+r720 | wjm | 2008-05-26 20:02:56 -0700 (Mon, 26 May 2008) | 3 lines
+
+Refactored the RING_BUFFER data structure and its
+associated RING_ITEM elements into a separate file
+which should be completely self-contained.
+------------------------------------------------------------------------
+r716 | wjm | 2008-05-23 13:10:16 -0700 (Fri, 23 May 2008) | 1 line
+
+Refactored caspern_packet.h and reformatted.
+------------------------------------------------------------------------
+r715 | wjm | 2008-05-23 13:07:36 -0700 (Fri, 23 May 2008) | 1 line
+
+Renamed corr_packet.h to caspern_packet.h.
+------------------------------------------------------------------------
+r711 | wjm | 2008-05-21 21:23:05 -0700 (Wed, 21 May 2008) | 2 lines
+
+Got rid of some libc2m compilation warnings.
+
+------------------------------------------------------------------------
+r710 | wjm | 2008-05-21 17:11:56 -0700 (Wed, 21 May 2008) | 2 lines
+
+Now corr_rx uses libc2m to parse command line parameters.
+
+------------------------------------------------------------------------
+r709 | wjm | 2008-05-21 16:14:48 -0700 (Wed, 21 May 2008) | 4 lines
+
+Put c2m into a static library, libc2m.a.
+Got corr_rx.c linking against libc2m.
+Scrubbed some cruft.
+
+------------------------------------------------------------------------
+r708 | wjm | 2008-05-21 15:17:53 -0700 (Wed, 21 May 2008) | 1 line
+
+Renamed corr2uv to libc2m.
+------------------------------------------------------------------------
+r707 | wjm | 2008-05-21 15:17:26 -0700 (Wed, 21 May 2008) | 1 line
+
+Added static library generation to Makefile.
+------------------------------------------------------------------------
+r706 | wjm | 2008-05-21 14:27:01 -0700 (Wed, 21 May 2008) | 1 line
+
+Fixed corr2uv Makefile.
+------------------------------------------------------------------------
+r703 | wjm | 2008-05-20 19:25:44 -0700 (Tue, 20 May 2008) | 4 lines
+
+Split corr_rx.c preamble into corr_rx.h.
+Included Griffin's corr2uv header and
+added corresponding Makefile entries.
+
+------------------------------------------------------------------------
+r684 | wjm | 2008-05-08 14:55:05 -0700 (Thu, 08 May 2008) | 1 line
+
+Tightened up some code.  Still works.
+------------------------------------------------------------------------
+r683 | wjm | 2008-05-08 13:55:48 -0700 (Thu, 08 May 2008) | 1 line
+
+Removed unnecessary debugging code.
+------------------------------------------------------------------------
+r670 | wjm | 2008-05-06 21:47:07 -0700 (Tue, 06 May 2008) | 1 line
+
+Added some debug code.
+------------------------------------------------------------------------
+r666 | wjm | 2008-05-05 17:50:54 -0700 (Mon, 05 May 2008) | 2 lines
+
+Set the 'evil' bit.
+Code cleanup.
+------------------------------------------------------------------------
+r665 | wjm | 2008-05-05 17:43:31 -0700 (Mon, 05 May 2008) | 1 line
+
+Moved network listener setup into network thread.
+------------------------------------------------------------------------
+r661 | wjm | 2008-04-24 14:15:25 -0700 (Thu, 24 Apr 2008) | 2 lines
+
+Versioned paper1:~obs/corr-0.2.3 for posterity.
+
+------------------------------------------------------------------------
+r660 | wjm | 2008-04-24 14:12:07 -0700 (Thu, 24 Apr 2008) | 2 lines
+
+Gathered unversioned files from paper1:~obs/corr-0.3.0.
+
+------------------------------------------------------------------------
+r659 | wjm | 2008-04-24 13:39:59 -0700 (Thu, 24 Apr 2008) | 4 lines
+
+Unpacked test_10gbe_mux_pack.zip and its contents.
+Cleaned up directories and the Corr_Recv Makefile.
+Removed the original test_10gbe_mux_pack.zip file.
+
+------------------------------------------------------------------------
+r658 | wjm | 2008-04-24 13:24:42 -0700 (Thu, 24 Apr 2008) | 3 lines
+
+Added Jason's 10GbE NIC benchmarking suite.
+Includes Simulink, C and Python in a zip file.
+
+------------------------------------------------------------------------
+r657 | wjm | 2008-04-22 20:52:21 -0700 (Tue, 22 Apr 2008) | 1 line
+
+Added a semi-functional packet counter.
+------------------------------------------------------------------------
+r656 | wjm | 2008-04-17 15:11:07 -0700 (Thu, 17 Apr 2008) | 1 line
+
+Improved burst timing control for gen_data.
+------------------------------------------------------------------------
+r655 | wjm | 2008-04-16 21:07:15 -0700 (Wed, 16 Apr 2008) | 3 lines
+
+Removed unnecessary debug print statements.
+Made gen_data spew unreasonable amounts of data.
+
+------------------------------------------------------------------------
+r654 | wjm | 2008-04-16 12:39:08 -0700 (Wed, 16 Apr 2008) | 3 lines
+
+Improved full/empty buffer coping mechanisms.
+Added code to calculate maximum packet delay
+to prevent dropped packets.
+------------------------------------------------------------------------
+r653 | wjm | 2008-04-16 11:24:06 -0700 (Wed, 16 Apr 2008) | 1 line
+
+Added file writing to hdd thread.
+------------------------------------------------------------------------
+r652 | wjm | 2008-04-15 20:46:40 -0700 (Tue, 15 Apr 2008) | 1 line
+
+Reformatted code to BSD-style.
+------------------------------------------------------------------------
+r651 | wjm | 2008-04-13 23:49:09 -0700 (Sun, 13 Apr 2008) | 1 line
+
+Code cleanup.
+------------------------------------------------------------------------
+r650 | wjm | 2008-04-13 22:12:50 -0700 (Sun, 13 Apr 2008) | 3 lines
+
+Implemented mmap'd ring buffer.
+Maybe try replacing the boolean
+'unread' flag with a semaphore?
+------------------------------------------------------------------------
+r649 | wjm | 2008-04-13 16:24:10 -0700 (Sun, 13 Apr 2008) | 1 line
+
+Improved makefile.
+------------------------------------------------------------------------
+r648 | wjm | 2008-04-11 18:22:39 -0700 (Fri, 11 Apr 2008) | 1 line
+
+Improved gen_data.c.
+------------------------------------------------------------------------
+r647 | wjm | 2008-04-11 18:04:51 -0700 (Fri, 11 Apr 2008) | 1 line
+
+Wrote a packet generator for simulating correlator data.
+------------------------------------------------------------------------
+r645 | wjm | 2008-04-08 14:21:59 -0700 (Tue, 08 Apr 2008) | 2 lines
+
+Rescued mlib_devel_8_2 directory from CVS-transition oblivion.
+
+------------------------------------------------------------------------
+r644 | wjm | 2008-04-08 14:21:01 -0700 (Tue, 08 Apr 2008) | 2 lines
+
+Rescued mlib_devel_9_2 directory from CVS-transition oblivion.
+
+------------------------------------------------------------------------
+r643 | wjm | 2008-04-08 14:20:24 -0700 (Tue, 08 Apr 2008) | 2 lines
+
+Rescued caltech directory from CVS-transition oblivion.
+
+------------------------------------------------------------------------
+r642 | wjm | 2008-04-08 14:12:09 -0700 (Tue, 08 Apr 2008) | 1 line
+
+removed transitional CVS cruft
+------------------------------------------------------------------------
+r641 | wjm | 2008-04-08 14:06:05 -0700 (Tue, 08 Apr 2008) | 2 lines
+
+Copying over stuff lost in the CVS-to-SVN conversion.
+
+------------------------------------------------------------------------
+r640 | wjm | 2008-04-08 14:04:29 -0700 (Tue, 08 Apr 2008) | 3 lines
+
+Accidentally grabbed the wrong directory in the last commit.
+Removing it and trying again.
+
+------------------------------------------------------------------------
+r639 | wjm | 2008-04-08 14:02:12 -0700 (Tue, 08 Apr 2008) | 2 lines
+
+Copied my work from pre-CVS-merge repository to current repository.
+
+------------------------------------------------------------------------
+r350 | wjm | 2008-04-03 23:02:20 -0700 (Thu, 03 Apr 2008) | 2 lines
+
+Removed MAXBUFLEN.  Seemed out of place.
+
+------------------------------------------------------------------------
+r349 | wjm | 2008-04-03 22:51:52 -0700 (Thu, 03 Apr 2008) | 1 line
+
+Re-enabled the last of the recently-disabled code.
+------------------------------------------------------------------------
+r348 | wjm | 2008-04-03 22:42:42 -0700 (Thu, 03 Apr 2008) | 3 lines
+
+Fixed some more broken code.  Need to figure out
+exactly what findPacketIndex is supposed to do.
+
+------------------------------------------------------------------------
+r347 | wjm | 2008-04-03 21:09:17 -0700 (Thu, 03 Apr 2008) | 2 lines
+
+Fixed packet parsing bugs.  It works!
+
+------------------------------------------------------------------------
+r346 | wjm | 2008-04-03 20:16:22 -0700 (Thu, 03 Apr 2008) | 4 lines
+
+Got packet counting working by disabling the code that
+extracts useful information out of incoming packets.
+Next step: re-enable and fix that code.
+
+------------------------------------------------------------------------
+r345 | wjm | 2008-04-03 20:09:39 -0700 (Thu, 03 Apr 2008) | 1 line
+
+Uncommented more code for testing.
+------------------------------------------------------------------------
+r344 | wjm | 2008-04-03 20:05:39 -0700 (Thu, 03 Apr 2008) | 1 line
+
+Added more integration buffer initialization.
+------------------------------------------------------------------------
+r343 | wjm | 2008-04-03 19:51:36 -0700 (Thu, 03 Apr 2008) | 2 lines
+
+Removed gratuitous free() code referenced (hah!)
+in last commit message. Might resurrect it later.
+------------------------------------------------------------------------
+r342 | wjm | 2008-04-03 19:48:46 -0700 (Thu, 03 Apr 2008) | 3 lines
+
+Attempted to handle memory management.
+Partially succeeded; giving up on free().
+Might come back to memory cleanup later.
+------------------------------------------------------------------------
+r341 | wjm | 2008-04-03 16:25:32 -0700 (Thu, 03 Apr 2008) | 1 line
+
+added debug code
+------------------------------------------------------------------------
+r340 | wjm | 2008-04-03 14:37:39 -0700 (Thu, 03 Apr 2008) | 3 lines
+
+Mostly finished refactoring code.
+Fixed what i think were some bugs.
+Needs some testing with real data.
+------------------------------------------------------------------------
+r339 | wjm | 2008-04-02 20:44:57 -0700 (Wed, 02 Apr 2008) | 3 lines
+
+Began refactoring corr_rx.c into logical chunks.
+It compiles, but is still a work in progress.
+Should have same functionality as orig version.
+------------------------------------------------------------------------
+r338 | wjm | 2008-04-02 18:52:01 -0700 (Wed, 02 Apr 2008) | 1 line
+
+Minor code cleanup.
+------------------------------------------------------------------------
+r337 | wjm | 2008-04-02 17:31:07 -0700 (Wed, 02 Apr 2008) | 1 line
+
+renamed directory with all lowercase letters
+------------------------------------------------------------------------
+r336 | wjm | 2008-04-02 17:24:35 -0700 (Wed, 02 Apr 2008) | 5 lines
+
+This is the slightly modified corr_rx.c found in the un-tar'd
+corr_recv.tar.gz in the home directory on the lab bench laptop.
+This was the only source file that differed from the tarball.
+
+
+------------------------------------------------------------------------
+r335 | wjm | 2008-04-02 17:21:19 -0700 (Wed, 02 Apr 2008) | 4 lines
+
+Adding C port of cn_rx.py from lab bench laptop.
+This version was in a tarball: corr_recv.tar.gz
+
+
+------------------------------------------------------------------------

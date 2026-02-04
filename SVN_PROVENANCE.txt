@@ -1,0 +1,142 @@
+SVN Provenance Records for xgb_recv
+===================================
+Captured: 2026-02-03
+Source: SVN working copy at /Volumes/Archive/2008-2011 CASPER and ISI/casper/xgb_recv
+
+The original CASPER Subversion server (casper.berkeley.edu) is no longer accessible.
+This metadata was extracted from the local SVN working copy (format 10, upgraded to 31).
+
+--- svn info -R ---
+Path: .
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv
+Relative URL: ^/trunk/projects/xgb_recv
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: directory
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2051
+Last Changed Date: 2009-06-29 15:58:08 -0700 (Mon, 29 Jun 2009)
+
+Path: Makefile
+Name: Makefile
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv/Makefile
+Relative URL: ^/trunk/projects/xgb_recv/Makefile
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: file
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2047
+Last Changed Date: 2009-06-29 15:28:48 -0700 (Mon, 29 Jun 2009)
+Text Last Updated: 2010-04-16 13:44:32 -0700 (Fri, 16 Apr 2010)
+Checksum: be00eac2faadca17e6650ce6b6d7c98f11b2d92b
+
+Path: debug_macros.h
+Name: debug_macros.h
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv/debug_macros.h
+Relative URL: ^/trunk/projects/xgb_recv/debug_macros.h
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: file
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2040
+Last Changed Date: 2009-06-29 10:31:12 -0700 (Mon, 29 Jun 2009)
+Text Last Updated: 2010-04-16 13:44:32 -0700 (Fri, 16 Apr 2010)
+Checksum: f13d8aafd989ee4195bc34ca7a9111842ffd28d0
+
+Path: ring_buffer.c
+Name: ring_buffer.c
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv/ring_buffer.c
+Relative URL: ^/trunk/projects/xgb_recv/ring_buffer.c
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: file
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2045
+Last Changed Date: 2009-06-29 15:17:40 -0700 (Mon, 29 Jun 2009)
+Text Last Updated: 2010-04-16 13:44:32 -0700 (Fri, 16 Apr 2010)
+Checksum: 1644056444158e2d09f473528dcb85e28dec9ec6
+
+Path: ring_buffer.h
+Name: ring_buffer.h
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv/ring_buffer.h
+Relative URL: ^/trunk/projects/xgb_recv/ring_buffer.h
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: file
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2045
+Last Changed Date: 2009-06-29 15:17:40 -0700 (Mon, 29 Jun 2009)
+Text Last Updated: 2010-04-16 13:44:32 -0700 (Fri, 16 Apr 2010)
+Checksum: f68300b5ad595dfb4b346a4eff92f175fa6eb102
+
+Path: ring_buffer_test.c
+Name: ring_buffer_test.c
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv/ring_buffer_test.c
+Relative URL: ^/trunk/projects/xgb_recv/ring_buffer_test.c
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: file
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2045
+Last Changed Date: 2009-06-29 15:17:40 -0700 (Mon, 29 Jun 2009)
+Text Last Updated: 2010-04-16 13:44:32 -0700 (Fri, 16 Apr 2010)
+Checksum: ce7f7c21495b3fd73e208c2365334149f4a96555
+
+Path: xgb_recv.c
+Name: xgb_recv.c
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv/xgb_recv.c
+Relative URL: ^/trunk/projects/xgb_recv/xgb_recv.c
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: file
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2051
+Last Changed Date: 2009-06-29 15:58:08 -0700 (Mon, 29 Jun 2009)
+Text Last Updated: 2010-04-16 13:44:32 -0700 (Fri, 16 Apr 2010)
+Checksum: 8bf92713ddb6048a6328240182f606368817fb03
+
+Path: xgb_recv.h
+Name: xgb_recv.h
+Working Copy Root Path: /Users/wmallard/casper/projects/xgb_recv
+URL: http://wjm@casper.berkeley.edu/svn/trunk/projects/xgb_recv/xgb_recv.h
+Relative URL: ^/trunk/projects/xgb_recv/xgb_recv.h
+Repository Root: http://wjm@casper.berkeley.edu/svn
+Repository UUID: 577e11ce-4b3a-42a0-b907-5d4e03b181e5
+Revision: 2941
+Node Kind: file
+Schedule: normal
+Last Changed Author: wjm
+Last Changed Rev: 2040
+Last Changed Date: 2009-06-29 10:31:12 -0700 (Mon, 29 Jun 2009)
+Text Last Updated: 2010-04-16 13:44:32 -0700 (Fri, 16 Apr 2010)
+Checksum: 1c57a4dcdd72c9c571831922582d0387e033dc7d
+
+--- stat *.c *.h Makefile ---
+16777232 60587871 -rwxrwxrwx 1 wmallard staff 0 466 "Feb  3 20:47:47 2026" "Apr 16 13:44:32 2010" "Feb  3 20:47:46 2026" "Apr 16 13:44:32 2010" 4096 8 0 ring_buffer_test.c
+16777232 60587872 -rwxrwxrwx 1 wmallard staff 0 1654 "Feb  3 20:47:47 2026" "Apr 16 13:44:32 2010" "Feb  3 20:47:46 2026" "Apr 16 13:44:32 2010" 4096 8 0 ring_buffer.c
+16777232 60587874 -rwxrwxrwx 1 wmallard staff 0 5436 "Feb  3 20:47:47 2026" "Apr 16 13:44:32 2010" "Feb  3 20:47:46 2026" "Apr 16 13:44:32 2010" 4096 16 0 xgb_recv.c
+16777232 60587869 -rwxrwxrwx 1 wmallard staff 0 221 "Feb  3 20:47:47 2026" "Apr 16 13:44:32 2010" "Feb  3 20:47:46 2026" "Apr 16 13:44:32 2010" 4096 8 0 debug_macros.h
+16777232 60587873 -rwxrwxrwx 1 wmallard staff 0 766 "Feb  3 20:47:47 2026" "Apr 16 13:44:32 2010" "Feb  3 20:47:46 2026" "Apr 16 13:44:32 2010" 4096 8 0 ring_buffer.h
+16777232 60587875 -rwxrwxrwx 1 wmallard staff 0 1200 "Feb  3 20:47:47 2026" "Apr 16 13:44:32 2010" "Feb  3 20:47:46 2026" "Apr 16 13:44:32 2010" 4096 8 0 xgb_recv.h
+16777232 60587870 -rwxrwxrwx 1 wmallard staff 0 430 "Feb  3 20:47:47 2026" "Apr 16 13:44:32 2010" "Feb  3 20:47:46 2026" "Apr 16 13:44:32 2010" 4096 8 0 Makefile
