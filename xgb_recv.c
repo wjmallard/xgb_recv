@@ -86,6 +86,8 @@ int wait_for_readable(socket_t sock, int timeout_sec)
  */
 void *net_thread_function(void *arg)
 {
+	int ready = 0;
+
 	NET_THREAD_ARGS *args = (NET_THREAD_ARGS *)arg;
 	RING_BUFFER *pkt_buffer = args->pkt_buffer;
 
@@ -98,8 +100,6 @@ void *net_thread_function(void *arg)
 	SA_in addr; // packet source's address
 	socklen_t addr_len = sizeof(addr);
 	ssize_t num_bytes = 0;
-
-	int ready = 0;
 
 	debug_fprintf(stderr, "Entering network thread loop.\n");
 
