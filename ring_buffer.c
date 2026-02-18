@@ -25,7 +25,7 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
 		this_item->next = next_item;
 		sem_init(&this_item->write_mutex, 0, 1);
 		sem_init(&this_item->read_mutex, 0, 0);
-		this_item->data = buffer;
+		this_item->data = (uint8_t *)buffer + i * (buf_size / item_count);
 		this_item->size = 0;
 	}
 
