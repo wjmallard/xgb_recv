@@ -81,8 +81,8 @@ void *net_thread_function(void *arg)
 	 *   wait for next free buffer slot,
 	 *   grab current buffer slot write_mutex,
 	 *   read data from network into the slot,
+	 *   validate received data,
 	 *   release the buffer slot read_mutex,
-	 *   validate received data based on length,
 	 *   advance write pointer to next buffer slot.
 	 */
 	while (run_net_thread)
@@ -92,16 +92,18 @@ void *net_thread_function(void *arg)
 
 		sem_wait(&this_slot->write_mutex);
 		num_bytes = recvfrom(sock, buffer, length, flags, (SA *)&addr, &addr_len);
-		this_slot->size = num_bytes;
-		sem_post(&this_slot->read_mutex);
 
 		if (num_bytes == -1)
 		{
+			sem_post(&this_slot->write_mutex);
 			perror("Unable to receive packet.\n");
 			exit(1);
 		}
 		else
 		{
+			this_slot->size = num_bytes;
+			sem_post(&this_slot->read_mutex);
+
 			debug_fprintf(stderr, "[net thread] Received %ld bytes.\n", num_bytes);
 		}
 
