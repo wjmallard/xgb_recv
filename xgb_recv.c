@@ -129,7 +129,7 @@ void *net_thread_function(void *arg)
 		if (ready == -1)
 		{
 			perror("select");
-			exit(1);
+			break;
 		}
 
 		next_slot = this_slot->next;
@@ -148,7 +148,7 @@ void *net_thread_function(void *arg)
 				continue;
 
 			perror("Unable to receive packet");
-			exit(1);
+			break;
 		}
 
 		this_slot->size = num_bytes;
