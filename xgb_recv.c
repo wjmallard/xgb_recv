@@ -126,7 +126,7 @@ void *hdd_thread_function(void *arg)
 	HDD_THREAD_ARGS *args = (HDD_THREAD_ARGS *)arg;
 	RING_BUFFER *pkt_buffer = args->pkt_buffer;
 
-	RING_ITEM *this_slot = pkt_buffer->write_ptr;
+	RING_ITEM *this_slot = pkt_buffer->read_ptr;
 	RING_ITEM *next_slot = NULL;
 
 	int fd = open_output_file(CAPTURE_FILE);
