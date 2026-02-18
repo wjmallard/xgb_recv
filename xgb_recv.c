@@ -33,6 +33,11 @@ int receive_packets()
 	size_t buffer_size = RX_BUFFER_SIZE;
 	size_t list_length = RX_BUFFER_SIZE / MAX_PAYLOAD_LEN;
 	RING_BUFFER *pkt_buffer = ring_buffer_create(list_length, buffer_size);
+	if (pkt_buffer == NULL)
+	{
+		fprintf(stderr, "Failed to create packet ring buffer.\n");
+		return 1;
+	}
 
 	NET_THREAD_ARGS net_thread_args;
 	net_thread_args.pkt_buffer = pkt_buffer;
