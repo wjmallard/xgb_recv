@@ -35,7 +35,7 @@ typedef struct ring_buffer {
  * Function Declarations
  */
 
-RING_BUFFER *ring_buffer_create(size_t num_slots, size_t buf_size);
+RING_BUFFER *ring_buffer_create(size_t num_slots, size_t payload_size);
 void ring_buffer_delete(RING_BUFFER *rb);
 
 #endif // _RING_BUFFER_H_

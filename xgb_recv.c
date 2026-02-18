@@ -7,8 +7,8 @@
 #include "xgb_recv.h"
 
 #define LISTEN_PORT 8888
-#define RX_BUFFER_SIZE 81920
-#define MAX_PAYLOAD_LEN 8192
+#define NUM_PACKET_SLOTS 10
+#define MAX_PAYLOAD_SIZE 8192
 #define CAPTURE_FILE "raw_capture.dat"
 #define SELECT_TIMEOUT_SEC 1
 #define RECV_BUF_SIZE (2 * 1024 * 1024)
@@ -31,9 +31,7 @@ int main(int argc, char **argv)
  */
 int receive_packets()
 {
-	size_t buffer_size = RX_BUFFER_SIZE;
-	size_t num_slots = RX_BUFFER_SIZE / MAX_PAYLOAD_LEN;
-	RING_BUFFER *pkt_buffer = ring_buffer_create(num_slots, buffer_size);
+	RING_BUFFER *pkt_buffer = ring_buffer_create(NUM_PACKET_SLOTS, MAX_PAYLOAD_SIZE);
 	if (pkt_buffer == NULL)
 	{
 		fprintf(stderr, "Failed to create packet ring buffer.\n");
@@ -95,14 +93,13 @@ void *net_thread_function(void *arg)
 	RING_ITEM *next_slot = NULL;
 
 	socket_t sock = setup_network_listener();
-	int ready = -1;
-
 	void *buffer = NULL;
-	size_t length = MAX_PAYLOAD_LEN;
 	int flags = 0;
 	SA_in addr; // packet source's address
 	socklen_t addr_len = sizeof(addr);
 	ssize_t num_bytes = 0;
+
+	int ready = 0;
 
 	debug_fprintf(stderr, "Entering network thread loop.\n");
 
@@ -137,7 +134,7 @@ void *net_thread_function(void *arg)
 		buffer = this_slot->payload;
 
 		sem_wait(&this_slot->write_mutex);
-		num_bytes = recvfrom(sock, buffer, length, flags, (SA *)&addr, &addr_len);
+		num_bytes = recvfrom(sock, buffer, MAX_PAYLOAD_SIZE, flags, (SA *)&addr, &addr_len);
 
 		if (num_bytes == -1)
 		{

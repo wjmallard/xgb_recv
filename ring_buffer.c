@@ -9,10 +9,10 @@
 /*
  * Construct and initialize a RING_BUFFER.
  */
-RING_BUFFER *ring_buffer_create(size_t num_slots, size_t buf_size)
+RING_BUFFER *ring_buffer_create(size_t num_slots, size_t payload_size)
 {
 	// create payload buffer
-	void *payloads = calloc(buf_size, 1);
+	void *payloads = calloc(num_slots, payload_size);
 	if (payloads == NULL)
 	{
 		perror("Failed to allocate ring buffer data");
@@ -37,7 +37,7 @@ RING_BUFFER *ring_buffer_create(size_t num_slots, size_t buf_size)
 		this_item->next = next_item;
 		sem_init(&this_item->write_mutex, 0, 1);
 		sem_init(&this_item->read_mutex, 0, 0);
-		this_item->payload = (uint8_t *)payloads + i * (buf_size / num_slots);
+		this_item->payload = (uint8_t *)payloads + i * payload_size;
 		this_item->size = 0;
 	}
 

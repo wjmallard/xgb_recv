@@ -10,10 +10,10 @@
 int main (int argc, char **argv)
 {
 	int num_slots = 4;
-	int buf_size = 8192;
+	int payload_size = 2048;
 
-	printf("Creating %d byte ring buffer with %d items.\n", buf_size, num_slots);
-	RING_BUFFER *rb = ring_buffer_create(num_slots, buf_size);
+	printf("Creating ring buffer with %d slots of %d bytes.\n", num_slots, payload_size);
+	RING_BUFFER *rb = ring_buffer_create(num_slots, payload_size);
 	printf("Success!\n");
 	printf("\n");
 
