@@ -13,9 +13,21 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
 {
 	// create buffer
 	void *buffer = calloc(buf_size, 1);
+	if (buffer == NULL)
+	{
+		perror("Failed to allocate ring buffer data");
+		return NULL;
+	}
 
 	// create list items
 	RING_ITEM *head_item = (RING_ITEM *)calloc(item_count, sizeof(RING_ITEM));
+	if (head_item == NULL)
+	{
+		perror("Failed to allocate ring buffer items");
+		free(buffer);
+		return NULL;
+	}
+
 	int i;
 	for(i=0; i<item_count; i++)
 	{
@@ -31,6 +43,14 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
 
 	// create ring buffer
 	RING_BUFFER *rb = (RING_BUFFER *)calloc(1, sizeof(RING_BUFFER));
+	if (rb == NULL)
+	{
+		perror("Failed to allocate ring buffer struct");
+		free(buffer);
+		free(head_item);
+		return NULL;
+	}
+
 	rb->buffer_ptr = buffer;
 	rb->buffer_size = buf_size;
 	rb->list_ptr = head_item;
