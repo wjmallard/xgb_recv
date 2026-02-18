@@ -4,6 +4,7 @@
  * date: 2008-10-20
  */
 
+#include <stdio.h>
 #include "ring_buffer.h"
 
 int main (int argc, char **argv)
