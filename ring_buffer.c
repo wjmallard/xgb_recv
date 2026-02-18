@@ -28,7 +28,7 @@ RING_BUFFER *ring_buffer_create(size_t num_slots, size_t payload_size)
 		return NULL;
 	}
 
-	int i;
+	size_t i;
 	for(i=0; i<num_slots; i++)
 	{
 		RING_ITEM *this_item = &slots[i];
@@ -66,7 +66,7 @@ void ring_buffer_delete(RING_BUFFER *rb)
 {
 	free(rb->payloads);
 
-	int i;
+	size_t i;
 	for(i=0; i<rb->num_slots; i++)
 	{
 		pthread_mutex_destroy(&rb->slots[i].mutex);
