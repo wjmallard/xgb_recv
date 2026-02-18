@@ -13,7 +13,6 @@
 #define SELECT_TIMEOUT_SEC 1
 
 volatile sig_atomic_t run_net_thread = 1;
-volatile sig_atomic_t run_hdd_thread = 1;
 
 /*
  * Wrapper for stand-alone testing.
@@ -159,11 +158,9 @@ void *net_thread_function(void *arg)
 
 	close(sock);
 
-	// Signal the hdd thread to stop, then wake it up by posting
-	// the next unwritten slot's read_mutex. The hdd thread will
-	// drain any remaining data, hit this slot (size=0, a no-op
-	// write), and exit on the next loop iteration.
-	run_hdd_thread = 0;
+	// Post a zero-size sentinel to tell the hdd thread to shut
+	// down. It will drain all remaining buffered slots first,
+	// then hit this sentinel and exit.
 	this_slot->size = 0;
 	sem_post(&this_slot->read_mutex);
 
@@ -192,16 +189,26 @@ void *hdd_thread_function(void *arg)
 	 *   update relevant local pointers,
 	 *   wait for next full buffer slot,
 	 *   grab current buffer slot read_mutex,
+	 *   (exit if the slot is a zero-size sentinel),
 	 *   write data from the buffer to a file,
 	 *   validate written data based on length,
 	 *   release the buffer slot write_mutex,
 	 *   advance read pointer to next buffer slot.
 	 */
-	while (run_hdd_thread)
+	while (true)
 	{
 		next_slot = this_slot->next;
 
 		sem_wait(&this_slot->read_mutex);
+
+		// A zero-size sentinel means the net thread finished,
+		// and the hdd thread has drained all remaining data.
+		if (this_slot->size == 0)
+		{
+			sem_post(&this_slot->write_mutex);
+			break;
+		}
+
 		num_bytes = write(fd, this_slot->data, this_slot->size);
 
 		if (num_bytes == -1)

@@ -21,6 +21,7 @@
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <stdbool.h>
 
 #include <pthread.h>
 #include <semaphore.h>
@@ -64,6 +65,5 @@ int open_output_file(const char *path);
 void cleanup(int signal);
 
 extern volatile sig_atomic_t run_net_thread;
-extern volatile sig_atomic_t run_hdd_thread;
 
 #endif /* _XGB_RECV_H_ */
