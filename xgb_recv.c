@@ -133,12 +133,12 @@ void *net_thread_function(void *arg)
 		next_slot = this_slot->next;
 		buffer = this_slot->payload;
 
-		sem_wait(&this_slot->write_mutex);
+		slot_wait_writable(this_slot);
 		num_bytes = recvfrom(sock, buffer, MAX_PAYLOAD_SIZE, flags, (SA *)&addr, &addr_len);
 
 		if (num_bytes == -1)
 		{
-			sem_post(&this_slot->write_mutex);
+			slot_mark_writable(this_slot);
 
 			// signal arrived between select() and recvfrom();
 			// return to start of loop and exit cleanly.
@@ -150,7 +150,7 @@ void *net_thread_function(void *arg)
 		}
 
 		this_slot->size = num_bytes;
-		sem_post(&this_slot->read_mutex);
+		slot_mark_readable(this_slot);
 
 		debug_fprintf(stderr, "[net thread] Received %zd bytes.\n", num_bytes);
 
@@ -165,7 +165,7 @@ void *net_thread_function(void *arg)
 	// down. It will drain all remaining buffered slots first,
 	// then hit this sentinel and exit.
 	this_slot->size = 0;
-	sem_post(&this_slot->read_mutex);
+	slot_mark_readable(this_slot);
 
 	return NULL;
 }
@@ -202,13 +202,13 @@ void *hdd_thread_function(void *arg)
 	{
 		next_slot = this_slot->next;
 
-		sem_wait(&this_slot->read_mutex);
+		slot_wait_readable(this_slot);
 
 		// A zero-size sentinel means the net thread finished,
 		// and the hdd thread has drained all remaining data.
 		if (this_slot->size == 0)
 		{
-			sem_post(&this_slot->write_mutex);
+			slot_mark_writable(this_slot);
 			break;
 		}
 
@@ -216,18 +216,18 @@ void *hdd_thread_function(void *arg)
 
 		if (num_bytes == -1)
 		{
-			sem_post(&this_slot->write_mutex);
+			slot_mark_writable(this_slot);
 			perror("Unable to write packet");
 			exit(1);
 		}
 		else if (num_bytes != this_slot->size)
 		{
-			sem_post(&this_slot->write_mutex);
+			slot_mark_writable(this_slot);
 			fprintf(stderr, "Short write: %zd of %zu bytes.\n", num_bytes, this_slot->size);
 			exit(1);
 		}
 
-		sem_post(&this_slot->write_mutex);
+		slot_mark_writable(this_slot);
 
 		debug_fprintf(stderr, "[hdd thread] Wrote %zd bytes.\n", num_bytes);
 

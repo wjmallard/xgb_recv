@@ -35,8 +35,9 @@ RING_BUFFER *ring_buffer_create(size_t num_slots, size_t payload_size)
 		RING_ITEM *next_item = &slots[(i + 1) % num_slots];
 
 		this_item->next = next_item;
-		sem_init(&this_item->write_mutex, 0, 1);
-		sem_init(&this_item->read_mutex, 0, 0);
+		pthread_mutex_init(&this_item->mutex, NULL);
+		pthread_cond_init(&this_item->cond, NULL);
+		this_item->readable = false;
 		this_item->payload = (uint8_t *)payloads + i * payload_size;
 		this_item->size = 0;
 	}
@@ -68,10 +69,54 @@ void ring_buffer_delete(RING_BUFFER *rb)
 	int i;
 	for(i=0; i<rb->num_slots; i++)
 	{
-		sem_destroy(&rb->slots[i].write_mutex);
-		sem_destroy(&rb->slots[i].read_mutex);
+		pthread_mutex_destroy(&rb->slots[i].mutex);
+		pthread_cond_destroy(&rb->slots[i].cond);
 	}
 	free(rb->slots);
 
 	free(rb);
+}
+
+/*
+ * Mark slot as writable (not readable) and signal waiters.
+ */
+void slot_mark_writable(RING_ITEM *slot)
+{
+	pthread_mutex_lock(&slot->mutex);
+	slot->readable = false;
+	pthread_cond_signal(&slot->cond);
+	pthread_mutex_unlock(&slot->mutex);
+}
+
+/*
+ * Wait until slot is writable (not readable).
+ */
+void slot_wait_writable(RING_ITEM *slot)
+{
+	pthread_mutex_lock(&slot->mutex);
+	while (slot->readable)
+		pthread_cond_wait(&slot->cond, &slot->mutex);
+	pthread_mutex_unlock(&slot->mutex);
+}
+
+/*
+ * Mark slot as readable and signal waiters.
+ */
+void slot_mark_readable(RING_ITEM *slot)
+{
+	pthread_mutex_lock(&slot->mutex);
+	slot->readable = true;
+	pthread_cond_signal(&slot->cond);
+	pthread_mutex_unlock(&slot->mutex);
+}
+
+/*
+ * Wait until slot is readable.
+ */
+void slot_wait_readable(RING_ITEM *slot)
+{
+	pthread_mutex_lock(&slot->mutex);
+	while (!slot->readable)
+		pthread_cond_wait(&slot->cond, &slot->mutex);
+	pthread_mutex_unlock(&slot->mutex);
 }
