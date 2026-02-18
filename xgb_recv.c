@@ -10,6 +10,7 @@
 #define RX_BUFFER_SIZE 81920
 #define MAX_PAYLOAD_LEN 8192
 #define CAPTURE_FILE "raw_capture.dat"
+#define SELECT_TIMEOUT_SEC 1
 
 volatile sig_atomic_t run_net_thread = 1;
 volatile sig_atomic_t run_hdd_thread = 1;
@@ -41,7 +42,7 @@ int receive_packets()
 	hdd_thread_args.pkt_buffer = pkt_buffer;
 
 	// start listening for Ctrl-C
-	//signal(SIGINT, cleanup);
+	signal(SIGINT, cleanup);
 
 	// make stdout unbuffered
 	setbuf(stdout, NULL);
@@ -57,6 +58,26 @@ int receive_packets()
 }
 
 /*
+ * Wait for socket to become readable.
+ * Returns 1 if readable, 0 on timeout or signal, -1 on error.
+ */
+int wait_for_readable(socket_t sock, int timeout_sec)
+{
+	fd_set readfds;
+	FD_ZERO(&readfds);
+	FD_SET(sock, &readfds);
+	struct timeval tv = {
+		.tv_sec = timeout_sec,
+		.tv_usec = 0,
+	};
+
+	int ret = select(sock + 1, &readfds, NULL, NULL, &tv);
+	if (ret == -1 && errno == EINTR)
+		return 0; // treat signal like a timeout
+	return ret;
+}
+
+/*
  * Read data from the network.
  * Write data to ring buffer.
  */
@@ -69,6 +90,8 @@ void *net_thread_function(void *arg)
 	RING_ITEM *next_slot = NULL;
 
 	socket_t sock = setup_network_listener();
+	int ready = -1;
+
 	void *buffer = NULL;
 	size_t length = MAX_PAYLOAD_LEN;
 	int flags = 0;
@@ -90,6 +113,21 @@ void *net_thread_function(void *arg)
 	 */
 	while (run_net_thread)
 	{
+		// Responses:
+		// 1: socket has data
+		// 0: nothing to read; keep waiting
+		// -1: read error or Ctrl+C
+		ready = wait_for_readable(sock, SELECT_TIMEOUT_SEC);
+		if (ready == 0)
+		{
+			continue;
+		}
+		if (ready == -1)
+		{
+			perror("select");
+			exit(1);
+		}
+
 		next_slot = this_slot->next;
 		buffer = this_slot->data;
 
@@ -99,6 +137,12 @@ void *net_thread_function(void *arg)
 		if (num_bytes == -1)
 		{
 			sem_post(&this_slot->write_mutex);
+
+			// signal arrived between select() and recvfrom();
+			// return to start of loop and exit cleanly.
+			if (errno == EINTR)
+				continue;
+
 			perror("Unable to receive packet.\n");
 			exit(1);
 		}
