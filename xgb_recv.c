@@ -11,6 +11,9 @@
 #define MAX_PAYLOAD_LEN 8192
 #define CAPTURE_FILE "raw_capture.dat"
 
+volatile sig_atomic_t run_net_thread = 1;
+volatile sig_atomic_t run_hdd_thread = 1;
+
 /*
  * Wrapper for stand-alone testing.
  */

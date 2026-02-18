@@ -62,7 +62,7 @@ socket_t setup_network_listener();
 int open_output_file(const char *path);
 void cleanup(int signal);
 
-static uint32_t run_net_thread = 1;
-static uint32_t run_hdd_thread = 1;
+extern volatile sig_atomic_t run_net_thread;
+extern volatile sig_atomic_t run_hdd_thread;
 
 #endif /* _XGB_RECV_H_ */
