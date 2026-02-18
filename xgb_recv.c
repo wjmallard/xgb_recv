@@ -143,7 +143,7 @@ void *net_thread_function(void *arg)
 			if (errno == EINTR)
 				continue;
 
-			perror("Unable to receive packet.\n");
+			perror("Unable to receive packet");
 			exit(1);
 		}
 
@@ -207,7 +207,7 @@ void *hdd_thread_function(void *arg)
 		if (num_bytes == -1)
 		{
 			sem_post(&this_slot->write_mutex);
-			perror("Unable to write packet.\n");
+			perror("Unable to write packet");
 			exit(1);
 		}
 		else if (num_bytes != this_slot->size)
@@ -244,7 +244,7 @@ int setup_network_listener()
 	sock = socket(PF_INET, SOCK_DGRAM, 0);
 	if (sock == -1)
 	{
-		perror("Unable to set socket descriptor.\n");
+		perror("Unable to set socket descriptor");
 		exit(1);
 	}
 
@@ -259,7 +259,7 @@ int setup_network_listener()
 	ret = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (void *)&on, sizeof(on));
 	if (ret == -1)
 	{
-		perror("setsockopt");
+		perror("Unable to reuse addresses");
 		exit(1);
 	}
 
@@ -267,7 +267,7 @@ int setup_network_listener()
 	ret = bind(sock, (SA *)&my_addr, sizeof(my_addr));
 	if (ret == -1)
 	{
-		perror("Unable to bind to socket.\n");
+		perror("Unable to bind to socket");
 		exit(1);
 	}
 
@@ -288,7 +288,7 @@ int open_output_file(const char *path)
 	fd = open(path, flags, mode);
 	if (fd == -1)
 	{
-		perror("Unable to open capture file.\n");
+		perror("Unable to open capture file");
 		exit(1);
 	}
 
