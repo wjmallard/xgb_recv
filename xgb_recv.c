@@ -11,6 +11,7 @@
 #define MAX_PAYLOAD_LEN 8192
 #define CAPTURE_FILE "raw_capture.dat"
 #define SELECT_TIMEOUT_SEC 1
+#define RECV_BUF_SIZE (2 * 1024 * 1024)
 
 volatile sig_atomic_t run_net_thread = 1;
 
@@ -273,6 +274,14 @@ int setup_network_listener()
 	{
 		perror("Unable to reuse addresses");
 		exit(1);
+	}
+
+	// request a larger kernel socket receive buffer
+	const int rcvbuf = RECV_BUF_SIZE;
+	ret = setsockopt(sock, SOL_SOCKET, SO_RCVBUF, (void *)&rcvbuf, sizeof(rcvbuf));
+	if (ret == -1)
+	{
+		perror("Unable to set receive buffer size");
 	}
 
 	// bind socket to local address
