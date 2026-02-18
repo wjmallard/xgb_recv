@@ -159,7 +159,13 @@ void *net_thread_function(void *arg)
 
 	close(sock);
 
+	// Signal the hdd thread to stop, then wake it up by posting
+	// the next unwritten slot's read_mutex. The hdd thread will
+	// drain any remaining data, hit this slot (size=0, a no-op
+	// write), and exit on the next loop iteration.
 	run_hdd_thread = 0;
+	this_slot->size = 0;
+	sem_post(&this_slot->read_mutex);
 
 	return NULL;
 }
