@@ -205,20 +205,20 @@ int setup_network_listener()
 	my_addr.sin_addr.s_addr = htonl(INADDR_ANY); // listen on all interfaces
 	memset(my_addr.sin_zero, 0, sizeof(my_addr.sin_zero));
 
-	// bind socket to local address
-	ret = bind(sock, (SA *)&my_addr, sizeof(my_addr));
-	if (ret == -1)
-	{
-		perror("Unable to bind to socket.\n");
-		exit(1);
-	}
-
 	// prevent "address already in use" errors
 	const int on = 1;
 	ret = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (void *)&on, sizeof(on));
 	if (ret == -1)
 	{
 		perror("setsockopt");
+		exit(1);
+	}
+
+	// bind socket to local address
+	ret = bind(sock, (SA *)&my_addr, sizeof(my_addr));
+	if (ret == -1)
+	{
+		perror("Unable to bind to socket.\n");
 		exit(1);
 	}
 
