@@ -32,8 +32,8 @@ int main(int argc, char **argv)
 int receive_packets()
 {
 	size_t buffer_size = RX_BUFFER_SIZE;
-	size_t list_length = RX_BUFFER_SIZE / MAX_PAYLOAD_LEN;
-	RING_BUFFER *pkt_buffer = ring_buffer_create(list_length, buffer_size);
+	size_t num_slots = RX_BUFFER_SIZE / MAX_PAYLOAD_LEN;
+	RING_BUFFER *pkt_buffer = ring_buffer_create(num_slots, buffer_size);
 	if (pkt_buffer == NULL)
 	{
 		fprintf(stderr, "Failed to create packet ring buffer.\n");
@@ -91,7 +91,7 @@ void *net_thread_function(void *arg)
 	NET_THREAD_ARGS *args = (NET_THREAD_ARGS *)arg;
 	RING_BUFFER *pkt_buffer = args->pkt_buffer;
 
-	RING_ITEM *this_slot = pkt_buffer->list_ptr;
+	RING_ITEM *this_slot = pkt_buffer->slots;
 	RING_ITEM *next_slot = NULL;
 
 	socket_t sock = setup_network_listener();
@@ -134,7 +134,7 @@ void *net_thread_function(void *arg)
 		}
 
 		next_slot = this_slot->next;
-		buffer = this_slot->data;
+		buffer = this_slot->payload;
 
 		sem_wait(&this_slot->write_mutex);
 		num_bytes = recvfrom(sock, buffer, length, flags, (SA *)&addr, &addr_len);
@@ -182,7 +182,7 @@ void *hdd_thread_function(void *arg)
 	HDD_THREAD_ARGS *args = (HDD_THREAD_ARGS *)arg;
 	RING_BUFFER *pkt_buffer = args->pkt_buffer;
 
-	RING_ITEM *this_slot = pkt_buffer->list_ptr;
+	RING_ITEM *this_slot = pkt_buffer->slots;
 	RING_ITEM *next_slot = NULL;
 
 	int fd = open_output_file(CAPTURE_FILE);
@@ -215,7 +215,7 @@ void *hdd_thread_function(void *arg)
 			break;
 		}
 
-		num_bytes = write(fd, this_slot->data, this_slot->size);
+		num_bytes = write(fd, this_slot->payload, this_slot->size);
 
 		if (num_bytes == -1)
 		{

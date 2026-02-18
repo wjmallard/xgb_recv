@@ -9,35 +9,35 @@
 /*
  * Construct and initialize a RING_BUFFER.
  */
-RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
+RING_BUFFER *ring_buffer_create(size_t num_slots, size_t buf_size)
 {
-	// create buffer
-	void *buffer = calloc(buf_size, 1);
-	if (buffer == NULL)
+	// create payload buffer
+	void *payloads = calloc(buf_size, 1);
+	if (payloads == NULL)
 	{
 		perror("Failed to allocate ring buffer data");
 		return NULL;
 	}
 
-	// create list items
-	RING_ITEM *head_item = (RING_ITEM *)calloc(item_count, sizeof(RING_ITEM));
-	if (head_item == NULL)
+	// create slots
+	RING_ITEM *slots = (RING_ITEM *)calloc(num_slots, sizeof(RING_ITEM));
+	if (slots == NULL)
 	{
 		perror("Failed to allocate ring buffer items");
-		free(buffer);
+		free(payloads);
 		return NULL;
 	}
 
 	int i;
-	for(i=0; i<item_count; i++)
+	for(i=0; i<num_slots; i++)
 	{
-		RING_ITEM *this_item = &head_item[i];
-		RING_ITEM *next_item = &head_item[(i + 1) % item_count];
+		RING_ITEM *this_item = &slots[i];
+		RING_ITEM *next_item = &slots[(i + 1) % num_slots];
 
 		this_item->next = next_item;
 		sem_init(&this_item->write_mutex, 0, 1);
 		sem_init(&this_item->read_mutex, 0, 0);
-		this_item->data = (uint8_t *)buffer + i * (buf_size / item_count);
+		this_item->payload = (uint8_t *)payloads + i * (buf_size / num_slots);
 		this_item->size = 0;
 	}
 
@@ -46,14 +46,14 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
 	if (rb == NULL)
 	{
 		perror("Failed to allocate ring buffer struct");
-		free(buffer);
-		free(head_item);
+		free(payloads);
+		free(slots);
 		return NULL;
 	}
 
-	rb->buffer_ptr = buffer;
-	rb->list_ptr = head_item;
-	rb->list_length = item_count;
+	rb->payloads = payloads;
+	rb->slots = slots;
+	rb->num_slots = num_slots;
 
 	return rb;
 }
@@ -63,15 +63,15 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
  */
 void ring_buffer_delete(RING_BUFFER *rb)
 {
-	free(rb->buffer_ptr);
+	free(rb->payloads);
 
 	int i;
-	for(i=0; i<rb->list_length; i++)
+	for(i=0; i<rb->num_slots; i++)
 	{
-		sem_destroy(&rb->list_ptr[i].write_mutex);
-		sem_destroy(&rb->list_ptr[i].read_mutex);
+		sem_destroy(&rb->slots[i].write_mutex);
+		sem_destroy(&rb->slots[i].read_mutex);
 	}
-	free(rb->list_ptr);
+	free(rb->slots);
 
 	free(rb);
 }

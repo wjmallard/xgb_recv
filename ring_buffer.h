@@ -21,22 +21,21 @@ typedef struct ring_item {
 	struct ring_item *next;
 	sem_t write_mutex;
 	sem_t read_mutex;
-	uint8_t *data;
+	uint8_t *payload;
 	size_t size;
 } RING_ITEM;
 
 typedef struct ring_buffer {
-	void *buffer_ptr;
-
-	struct ring_item *list_ptr;
-	size_t list_length;
+	void *payloads;
+	struct ring_item *slots;
+	size_t num_slots;
 } RING_BUFFER;
 
 /*
  * Function Declarations
  */
 
-RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size);
+RING_BUFFER *ring_buffer_create(size_t num_slots, size_t buf_size);
 void ring_buffer_delete(RING_BUFFER *rb);
 
 #endif // _RING_BUFFER_H_
