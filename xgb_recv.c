@@ -57,6 +57,8 @@ int receive_packets()
 	pthread_join(net_thread, NULL);
 	pthread_join(hdd_thread, NULL);
 
+	ring_buffer_delete(pkt_buffer);
+
 	return 0;
 }
 
