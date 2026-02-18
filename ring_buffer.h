@@ -31,9 +31,6 @@ typedef struct ring_buffer {
 
 	struct ring_item *list_ptr;
 	size_t list_length;
-
-	struct ring_item *write_ptr;
-	struct ring_item *read_ptr;
 } RING_BUFFER;
 
 /*

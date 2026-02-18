@@ -55,8 +55,6 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
 	rb->buffer_size = buf_size;
 	rb->list_ptr = head_item;
 	rb->list_length = item_count;
-	rb->write_ptr = head_item;
-	rb->read_ptr = head_item;
 
 	return rb;
 }
