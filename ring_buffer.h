@@ -27,7 +27,6 @@ typedef struct ring_item {
 
 typedef struct ring_buffer {
 	void *buffer_ptr;
-	size_t buffer_size;
 
 	struct ring_item *list_ptr;
 	size_t list_length;

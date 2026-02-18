@@ -52,7 +52,6 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
 	}
 
 	rb->buffer_ptr = buffer;
-	rb->buffer_size = buf_size;
 	rb->list_ptr = head_item;
 	rb->list_length = item_count;
 
@@ -64,30 +63,15 @@ RING_BUFFER *ring_buffer_create(size_t item_count, size_t buf_size)
  */
 void ring_buffer_delete(RING_BUFFER *rb)
 {
-	// delete buffer
-	void *buffer = rb->buffer_ptr;
-	size_t buf_size = rb->buffer_size;
-	memset(buffer, 0, buf_size);
-	free(buffer);
-	buffer = NULL;
+	free(rb->buffer_ptr);
 
-	// delete list items
-	RING_ITEM *head_item = rb->list_ptr;
-	size_t item_count = rb->list_length;
 	int i;
-	for(i=0; i<item_count; i++)
+	for(i=0; i<rb->list_length; i++)
 	{
-		RING_ITEM *this_item = &head_item[i];
-
-		sem_destroy(&this_item->write_mutex);
-		sem_destroy(&this_item->read_mutex);
-		memset(this_item, 0, sizeof(RING_ITEM));
+		sem_destroy(&rb->list_ptr[i].write_mutex);
+		sem_destroy(&rb->list_ptr[i].read_mutex);
 	}
-	free(head_item);
-	head_item = NULL;
+	free(rb->list_ptr);
 
-	// delete ring buffer
-	memset(rb, 0, sizeof(RING_BUFFER));
 	free(rb);
-	rb = NULL;
 }
