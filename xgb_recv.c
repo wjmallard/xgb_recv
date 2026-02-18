@@ -152,7 +152,7 @@ void *net_thread_function(void *arg)
 		this_slot->size = num_bytes;
 		sem_post(&this_slot->read_mutex);
 
-		debug_fprintf(stderr, "[net thread] Received %ld bytes.\n", num_bytes);
+		debug_fprintf(stderr, "[net thread] Received %zd bytes.\n", num_bytes);
 
 		this_slot = next_slot;
 	} // end while
@@ -223,13 +223,13 @@ void *hdd_thread_function(void *arg)
 		else if (num_bytes != this_slot->size)
 		{
 			sem_post(&this_slot->write_mutex);
-			fprintf(stderr, "Short write: %ld of %zu bytes.\n", num_bytes, this_slot->size);
+			fprintf(stderr, "Short write: %zd of %zu bytes.\n", num_bytes, this_slot->size);
 			exit(1);
 		}
 
 		sem_post(&this_slot->write_mutex);
 
-		debug_fprintf(stderr, "[hdd thread] Wrote %ld bytes.\n", num_bytes);
+		debug_fprintf(stderr, "[hdd thread] Wrote %zd bytes.\n", num_bytes);
 
 		this_slot = next_slot;
 	} // end while
