@@ -142,6 +142,7 @@ void *hdd_thread_function(void *arg)
 	 *   wait for next full buffer slot,
 	 *   grab current buffer slot read_mutex,
 	 *   write data from the buffer to a file,
+	 *   validate written data based on length,
 	 *   release the buffer slot write_mutex,
 	 *   advance read pointer to next buffer slot.
 	 */
@@ -151,15 +152,23 @@ void *hdd_thread_function(void *arg)
 
 		sem_wait(&this_slot->read_mutex);
 		num_bytes = write(fd, this_slot->data, this_slot->size);
-		sem_post(&this_slot->write_mutex);
 
 		if (num_bytes == -1)
 		{
+			sem_post(&this_slot->write_mutex);
 			perror("Unable to write packet.\n");
 			exit(1);
 		}
+	    else if (num_bytes != this_slot->size)
+	    {
+	        sem_post(&this_slot->write_mutex);
+	        fprintf(stderr, "Short write: %ld of %zu bytes.\n", num_bytes, this_slot->size);
+	        exit(1);
+	    }
 		else
 		{
+			sem_post(&this_slot->write_mutex);
+
 			debug_fprintf(stderr, "[hdd thread] Wrote %ld bytes.\n", num_bytes);
 		}
 
