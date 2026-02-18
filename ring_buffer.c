@@ -56,6 +56,15 @@ RING_BUFFER *ring_buffer_create(size_t num_slots, size_t payload_size)
 	rb->slots = slots;
 	rb->num_slots = num_slots;
 
+	atomic_init(&rb->slots_filled, 0);
+	atomic_init(&rb->total_produced, 0);
+	atomic_init(&rb->total_consumed, 0);
+
+	for(i=0; i<num_slots; i++)
+	{
+		slots[i].parent = rb;
+	}
+
 	return rb;
 }
 
@@ -86,6 +95,10 @@ void slot_mark_writable(RING_ITEM *slot)
 	slot->readable = false;
 	pthread_cond_signal(&slot->cond);
 	pthread_mutex_unlock(&slot->mutex);
+
+	RING_BUFFER *rb = slot->parent;
+	atomic_fetch_sub(&rb->slots_filled, 1);
+	atomic_fetch_add(&rb->total_consumed, 1);
 }
 
 /*
@@ -108,6 +121,10 @@ void slot_mark_readable(RING_ITEM *slot)
 	slot->readable = true;
 	pthread_cond_signal(&slot->cond);
 	pthread_mutex_unlock(&slot->mutex);
+
+	RING_BUFFER *rb = slot->parent;
+	atomic_fetch_add(&rb->slots_filled, 1);
+	atomic_fetch_add(&rb->total_produced, 1);
 }
 
 /*

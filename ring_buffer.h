@@ -9,6 +9,7 @@
 
 #include <netdb.h>
 #include <pthread.h>
+#include <stdatomic.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,6 +21,7 @@
 
 typedef struct ring_item {
 	struct ring_item *next;
+	struct ring_buffer *parent;
 	pthread_mutex_t mutex;
 	pthread_cond_t cond;
 	bool readable;
@@ -31,6 +33,9 @@ typedef struct ring_buffer {
 	void *payloads;
 	struct ring_item *slots;
 	size_t num_slots;
+	_Atomic size_t slots_filled;
+	_Atomic size_t total_produced;
+	_Atomic size_t total_consumed;
 } RING_BUFFER;
 
 /*
