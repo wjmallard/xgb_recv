@@ -2,27 +2,37 @@ CC = gcc
 CFLAGS = -g -Wall
 DEBUG = -D DEBUG
 
-default: xgb_recv
+SRC = src
+INC = include
+LIB = lib
+BIN = bin
+CFLAGS += -I $(INC)
 
-all: xgb_recv tools
+default: $(BIN)/xgb_recv
 
-tools: pkt_gen ring_buffer_test
+all: $(BIN)/xgb_recv tools
 
-%.o: %.c %.h
-	$(CC) $(CFLAGS) -c $<
+tools: $(BIN)/pkt_gen $(BIN)/ring_buffer_test
 
-xgb_recv: Makefile xgb_recv.o ring_buffer.o
-	$(CC) $(CFLAGS) xgb_recv.o ring_buffer.o -o $@ -lpthread
+$(LIB):
+	mkdir -p $(LIB)
 
-pkt_gen: Makefile pkt_gen.c
-	$(CC) $(CFLAGS) pkt_gen.c -o $@
+$(BIN):
+	mkdir -p $(BIN)
 
-ring_buffer_test: Makefile ring_buffer_test.c ring_buffer.o
-	$(CC) $(CFLAGS) $(DEBUG) ring_buffer_test.c ring_buffer.o -o ring_buffer_test -lpthread
+$(LIB)/%.o: $(SRC)/%.c $(INC)/%.h | $(LIB)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BIN)/xgb_recv: Makefile $(LIB)/xgb_recv.o $(LIB)/ring_buffer.o | $(BIN)
+	$(CC) $(CFLAGS) $(LIB)/xgb_recv.o $(LIB)/ring_buffer.o -o $@ -lpthread
+
+$(BIN)/pkt_gen: Makefile $(SRC)/pkt_gen.c | $(BIN)
+	$(CC) $(CFLAGS) $(SRC)/pkt_gen.c -o $@
+
+$(BIN)/ring_buffer_test: Makefile $(SRC)/ring_buffer_test.c $(LIB)/ring_buffer.o | $(BIN)
+	$(CC) $(CFLAGS) $(DEBUG) $(SRC)/ring_buffer_test.c $(LIB)/ring_buffer.o -o $@ -lpthread
 
 clean:
-	@rm -vf *.o
+	@rm -rvf $(LIB)
+	@rm -rvf $(BIN)
 	@rm -vf *~
-	@rm -vf xgb_recv
-	@rm -vf pkt_gen
-	@rm -vf *_test
