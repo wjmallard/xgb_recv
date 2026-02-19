@@ -29,7 +29,7 @@ RING_BUFFER *ring_buffer_create(size_t num_slots, size_t payload_size)
 	}
 
 	size_t i;
-	for(i=0; i<num_slots; i++)
+	for(i = 0; i < num_slots; i++)
 	{
 		RING_ITEM *this_item = &slots[i];
 		RING_ITEM *next_item = &slots[(i + 1) % num_slots];
@@ -60,7 +60,7 @@ RING_BUFFER *ring_buffer_create(size_t num_slots, size_t payload_size)
 	atomic_init(&rb->total_produced, 0);
 	atomic_init(&rb->total_consumed, 0);
 
-	for(i=0; i<num_slots; i++)
+	for(i = 0; i < num_slots; i++)
 	{
 		slots[i].parent = rb;
 	}
@@ -76,7 +76,7 @@ void ring_buffer_delete(RING_BUFFER *rb)
 	free(rb->payloads);
 
 	size_t i;
-	for(i=0; i<rb->num_slots; i++)
+	for(i = 0; i < rb->num_slots; i++)
 	{
 		pthread_mutex_destroy(&rb->slots[i].mutex);
 		pthread_cond_destroy(&rb->slots[i].cond);
