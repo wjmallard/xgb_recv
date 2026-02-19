@@ -51,6 +51,10 @@ typedef struct {
 	RING_BUFFER *pkt_buffer;
 } HDD_THREAD_ARGS;
 
+typedef struct {
+	RING_BUFFER *pkt_buffer;
+} VIS_THREAD_ARGS;
+
 /*
  * Function Declarations
  */
@@ -58,6 +62,7 @@ typedef struct {
 int receive_packets();
 void *net_thread_function(void *arg);
 void *hdd_thread_function(void *arg);
+void *vis_thread_function(void *arg);
 socket_t setup_network_listener();
 int wait_for_readable(socket_t sock, int timeout_sec);
 int open_output_file(const char *path);

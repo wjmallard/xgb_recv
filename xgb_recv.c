@@ -11,6 +11,7 @@
 #define MAX_PAYLOAD_SIZE 8192
 #define CAPTURE_FILE "raw_capture.dat"
 #define SELECT_TIMEOUT_SEC 1
+#define VIS_SLEEP_US 100000
 #define RECV_BUF_SIZE (2 * 1024 * 1024)
 
 volatile sig_atomic_t run_net_thread = 1;
@@ -24,10 +25,11 @@ int main(int argc, char **argv)
 }
 
 /*
- * Set up and spawn two threads.
+ * Set up and spawn three threads.
  * net_thread writes data from the nic into a ring buffer.
  * hdd_thread reads data from a ring buffer to hard disk.
- * Wait for both threads to re-join.
+ * vis_thread draws live ring buffer stats on stderr.
+ * Wait for all threads to re-join.
  */
 int receive_packets()
 {
@@ -44,18 +46,23 @@ int receive_packets()
 	HDD_THREAD_ARGS hdd_thread_args;
 	hdd_thread_args.pkt_buffer = pkt_buffer;
 
+	VIS_THREAD_ARGS vis_thread_args;
+	vis_thread_args.pkt_buffer = pkt_buffer;
+
 	// start listening for Ctrl-C
 	signal(SIGINT, cleanup);
 
 	// make stdout unbuffered
 	setbuf(stdout, NULL);
 
-	pthread_t net_thread, hdd_thread;
+	pthread_t net_thread, hdd_thread, vis_thread;
 	pthread_create(&net_thread, NULL, net_thread_function, &net_thread_args);
 	pthread_create(&hdd_thread, NULL, hdd_thread_function, &hdd_thread_args);
+	pthread_create(&vis_thread, NULL, vis_thread_function, &vis_thread_args);
 
 	pthread_join(net_thread, NULL);
 	pthread_join(hdd_thread, NULL);
+	pthread_join(vis_thread, NULL);
 
 	ring_buffer_delete(pkt_buffer);
 
@@ -219,6 +226,43 @@ void *hdd_thread_function(void *arg)
 	debug_fprintf(stderr, "Exiting hard disk thread loop.\n");
 
 	close(fd);
+
+	return NULL;
+}
+
+/*
+ * Poll ring buffer counters and draw a live status line on stderr.
+ */
+void *vis_thread_function(void *arg)
+{
+	VIS_THREAD_ARGS *args = (VIS_THREAD_ARGS *)arg;
+	RING_BUFFER *pkt_buffer = args->pkt_buffer;
+	size_t num_slots = pkt_buffer->num_slots;
+
+	size_t i;
+	size_t filled = 0;
+	size_t rx = 0;
+	size_t wr = 0;
+
+	fprintf(stderr, "Receiving packets. Ctrl+C to quit.\n");
+
+	while (run_net_thread)
+	{
+		usleep(VIS_SLEEP_US);
+
+		filled = atomic_load(&pkt_buffer->slots_filled);
+		rx = atomic_load(&pkt_buffer->total_produced);
+		wr = atomic_load(&pkt_buffer->total_consumed);
+
+		fprintf(stderr, "\rbuf [");
+		for (i = 0; i < num_slots; i++)
+		{
+			fputc(i < filled ? '#' : '.', stderr);
+		}
+		fprintf(stderr, "] %zu/%zu  received: %zu  written: %zu\033[K", filled, num_slots, rx, wr);
+	}
+
+	fprintf(stderr, "\n");
 
 	return NULL;
 }
