@@ -45,15 +45,7 @@ typedef struct sockaddr SA;
 
 typedef struct {
 	RING_BUFFER *pkt_buffer;
-} NET_THREAD_ARGS;
-
-typedef struct {
-	RING_BUFFER *pkt_buffer;
-} HDD_THREAD_ARGS;
-
-typedef struct {
-	RING_BUFFER *pkt_buffer;
-} VIS_THREAD_ARGS;
+} THREAD_ARGS;
 
 /*
  * Function Declarations

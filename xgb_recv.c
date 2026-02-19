@@ -40,14 +40,8 @@ int receive_packets()
 		return 1;
 	}
 
-	NET_THREAD_ARGS net_thread_args;
-	net_thread_args.pkt_buffer = pkt_buffer;
-
-	HDD_THREAD_ARGS hdd_thread_args;
-	hdd_thread_args.pkt_buffer = pkt_buffer;
-
-	VIS_THREAD_ARGS vis_thread_args;
-	vis_thread_args.pkt_buffer = pkt_buffer;
+	THREAD_ARGS thread_args;
+	thread_args.pkt_buffer = pkt_buffer;
 
 	// start listening for Ctrl-C
 	signal(SIGINT, cleanup);
@@ -56,9 +50,9 @@ int receive_packets()
 	setbuf(stdout, NULL);
 
 	pthread_t net_thread, hdd_thread, vis_thread;
-	pthread_create(&net_thread, NULL, net_thread_function, &net_thread_args);
-	pthread_create(&hdd_thread, NULL, hdd_thread_function, &hdd_thread_args);
-	pthread_create(&vis_thread, NULL, vis_thread_function, &vis_thread_args);
+	pthread_create(&net_thread, NULL, net_thread_function, &thread_args);
+	pthread_create(&hdd_thread, NULL, hdd_thread_function, &thread_args);
+	pthread_create(&vis_thread, NULL, vis_thread_function, &thread_args);
 
 	pthread_join(net_thread, NULL);
 	pthread_join(hdd_thread, NULL);
@@ -77,7 +71,7 @@ void *net_thread_function(void *arg)
 {
 	int ready = 0;
 
-	NET_THREAD_ARGS *args = (NET_THREAD_ARGS *)arg;
+	THREAD_ARGS *args = (THREAD_ARGS *)arg;
 	RING_BUFFER *pkt_buffer = args->pkt_buffer;
 
 	RING_ITEM *this_slot = pkt_buffer->slots;
@@ -165,7 +159,7 @@ void *net_thread_function(void *arg)
  */
 void *hdd_thread_function(void *arg)
 {
-	HDD_THREAD_ARGS *args = (HDD_THREAD_ARGS *)arg;
+	THREAD_ARGS *args = (THREAD_ARGS *)arg;
 	RING_BUFFER *pkt_buffer = args->pkt_buffer;
 
 	RING_ITEM *this_slot = pkt_buffer->slots;
@@ -235,7 +229,7 @@ void *hdd_thread_function(void *arg)
  */
 void *vis_thread_function(void *arg)
 {
-	VIS_THREAD_ARGS *args = (VIS_THREAD_ARGS *)arg;
+	THREAD_ARGS *args = (THREAD_ARGS *)arg;
 	RING_BUFFER *pkt_buffer = args->pkt_buffer;
 	size_t num_slots = pkt_buffer->num_slots;
 
