@@ -58,8 +58,8 @@ typedef struct {
 int receive_packets();
 void *net_thread_function(void *arg);
 void *hdd_thread_function(void *arg);
-int wait_for_readable(socket_t sock, int timeout_sec);
 socket_t setup_network_listener();
+int wait_for_readable(socket_t sock, int timeout_sec);
 int open_output_file(const char *path);
 void cleanup(int signal);
 

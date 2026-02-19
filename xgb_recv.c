@@ -63,26 +63,6 @@ int receive_packets()
 }
 
 /*
- * Wait for socket to become readable.
- * Returns 1 if readable, 0 on timeout or signal, -1 on error.
- */
-int wait_for_readable(socket_t sock, int timeout_sec)
-{
-	fd_set readfds;
-	FD_ZERO(&readfds);
-	FD_SET(sock, &readfds);
-	struct timeval tv = {
-		.tv_sec = timeout_sec,
-		.tv_usec = 0,
-	};
-
-	int ret = select(sock + 1, &readfds, NULL, NULL, &tv);
-	if (ret == -1 && errno == EINTR)
-		return 0; // treat signal like a timeout
-	return ret;
-}
-
-/*
  * Read data from the network.
  * Write data to ring buffer.
  */
@@ -294,6 +274,26 @@ int setup_network_listener()
 	debug_fprintf(stderr, "Listening on IP address %s on port %i\n", inet_ntoa(my_addr.sin_addr), LISTEN_PORT);
 
 	return sock;
+}
+
+/*
+ * Wait for socket to become readable.
+ * Returns 1 if readable, 0 on timeout or signal, -1 on error.
+ */
+int wait_for_readable(socket_t sock, int timeout_sec)
+{
+	fd_set readfds;
+	FD_ZERO(&readfds);
+	FD_SET(sock, &readfds);
+	struct timeval tv = {
+		.tv_sec = timeout_sec,
+		.tv_usec = 0,
+	};
+
+	int ret = select(sock + 1, &readfds, NULL, NULL, &tv);
+	if (ret == -1 && errno == EINTR)
+		return 0; // treat signal like a timeout
+	return ret;
 }
 
 /*
