@@ -7,7 +7,6 @@
 #ifndef _RING_BUFFER_H_
 #define _RING_BUFFER_H_
 
-#include <netdb.h>
 #include <pthread.h>
 #include <stdatomic.h>
 #include <stdbool.h>

@@ -7,26 +7,21 @@
 #ifndef _XGB_RECV_H_
 #define _XGB_RECV_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <netdb.h>
-#include <dirent.h>
-#include <sys/param.h>
-#include <sys/stat.h>
+#include <netinet/in.h>
+#include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
-
-#include <pthread.h>
-#include <sys/mman.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
-#include <fcntl.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "ring_buffer.h"
 #include "debug_macros.h"
@@ -55,6 +50,7 @@ int receive_packets();
 void *net_thread_function(void *arg);
 void *hdd_thread_function(void *arg);
 void *vis_thread_function(void *arg);
+
 socket_t setup_network_listener();
 int wait_for_readable(socket_t sock, int timeout_sec);
 int open_output_file(const char *path);

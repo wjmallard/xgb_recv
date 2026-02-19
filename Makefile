@@ -2,9 +2,9 @@ CC = gcc
 CFLAGS = -g -Wall
 DEBUG = -D DEBUG
 
-default: all
+default: xgb_recv
 
-all: xgb_recv
+all: xgb_recv tools
 
 tools: pkt_gen ring_buffer_test
 
